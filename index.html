@@ -319,6 +319,59 @@
       margin: 0 auto;
     }
 
+    /* SIDE LOGO — large screens only */
+    .menu-side-logo {
+      display: none;
+    }
+
+    @media (min-width: 1160px) {
+      .menu-body {
+        display: flex;
+        align-items: center;
+        gap: clamp(24px, 4vw, 56px);
+      }
+      .menu-side-logo {
+        display: block;
+        position: relative;
+        flex: 0 0 auto;
+        width: clamp(140px, 12vw, 200px);
+        pointer-events: none;
+        filter: drop-shadow(0 18px 30px rgba(196, 30, 58, 0.28));
+        animation: sideLogoFloat 5s ease-in-out infinite;
+      }
+      .menu-side-logo img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .menu-side-logo::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 150%;
+        height: 150%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(196, 30, 58, 0.14) 0%, rgba(196, 30, 58, 0) 70%);
+        z-index: -1;
+        animation: sideLogoGlow 5s ease-in-out infinite;
+      }
+      .slider-area {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+    }
+
+    @keyframes sideLogoFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-16px) rotate(2deg); }
+    }
+
+    @keyframes sideLogoGlow {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.92); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+    }
+
     .slider-area {
       display: flex;
       flex-direction: column;
@@ -330,9 +383,12 @@
       overflow: hidden;
       background: #f5f0ea;
       aspect-ratio: 16/9;
+      height: min(340px, 42vw);
       max-height: 340px;
       max-width: 100%;
       box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+      contain: strict;
     }
     .slides-wrap {
       display: flex;
@@ -355,11 +411,15 @@
       align-items: center;
       justify-content: center;
       background: linear-gradient(135deg, #f0ebe2, #e5ddd0);
+      overflow: hidden;
     }
     .img-slot img {
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
     }
     .slide-nav {
@@ -954,6 +1014,7 @@
         display: none;
       }
       .slider-container {
+        height: min(220px, 55vw);
         max-height: 220px;
       }
       .order-btn {
@@ -1058,6 +1119,9 @@
       </div>
 
       <div class="menu-body">
+      <div class="menu-side-logo">
+        <img src="data:image/png;base64,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" alt="Kosy Kings Kitchen Logo">
+      </div>
         <div class="slider-area">
           <div class="slider-container">
             <div class="slides-wrap" id="slidesWrap"></div>
@@ -1180,8 +1244,8 @@
           <input type="text" id="customerLocation" placeholder="Delivery Address / Location" required>
           <textarea id="specialInstructions" rows="2" placeholder="Additional notes (allergies, gate code, etc.)"></textarea>
           <button type="submit" class="submit-order-btn" id="submitOrderBtn">
-            <i class="fab fa-whatsapp"></i>
-            Send Order via WhatsApp
+            <i class="fas fa-comment-sms"></i>
+            Send Order via SMS
           </button>
         </form>
       </div>
@@ -1496,7 +1560,7 @@
       totalEl.textContent = `GHS ${total}`;
     }
 
-    // ========== SEND ORDER VIA WHATSAPP ==========
+    // ========== SEND ORDER VIA SMS ==========
     function sendOrder() {
       const name = document.getElementById('customerName')?.value.trim();
       const phone = document.getElementById('customerPhone')?.value.trim();
@@ -1510,17 +1574,21 @@
         alert('Your cart is empty. Please add items to your order.');
         return false;
       }
-      let message = ' KOSY KINGS KITCHEN ORDER \n\n';
-      message += ` Customer: ${name}\n Phone: ${phone}\n Location: ${location}\n Notes: ${special || 'None'}\n\n━━━ YOUR ORDER ━━━\n`;
+      let message = 'KOSY KINGS KITCHEN ORDER\n';
+      message += `Customer: ${name}\nPhone: ${phone}\nLocation: ${location}\nNotes: ${special || 'None'}\n--- ORDER ---\n`;
       let total = 0;
       cart.forEach(item => {
         const itemPrice = item.lockedPrice || item.price;
         const itemSize = item.lockedSize || item.size;
-        message += `▸ ${item.name} (${itemSize}) x${item.quantity} = GHS ${itemPrice * item.quantity}\n`;
+        message += `${item.name} (${itemSize}) x${item.quantity} = GHS ${itemPrice * item.quantity}\n`;
         total += itemPrice * item.quantity;
       });
-      message += `\n TOTAL: GHS ${total}\n\n Call us: 059 559 0891\n Location: Obuasi, Ghana\n\nThank you for ordering from Kosy Kings Kitchen! `;
-      window.open(`https://wa.me/233595590891?text=${encodeURIComponent(message)}`, '_blank');
+      message += `TOTAL: GHS ${total}`;
+
+      const smsNumber = '0595590891';
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const separator = isIOS ? '&' : '?';
+      window.location.href = `sms:${smsNumber}${separator}body=${encodeURIComponent(message)}`;
       return true;
     }
 
