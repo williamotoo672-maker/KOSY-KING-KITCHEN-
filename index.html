@@ -40,20 +40,35 @@
       transform: translateY(0);
     }
 
-    /* HERO SECTION */
+    /* ===== HERO SECTION with image background ===== */
     .hero {
       position: relative;
       height: 100vh;
       overflow: hidden;
     }
-    .hero video {
+    
+    /* 
+     * ============================================================
+     *  PLACE YOUR BACKGROUND IMAGE PATH BELOW
+     * ============================================================
+     * Replace 'images/background.png' with your actual image path.
+     * 
+     * Examples:
+     *   - If image is in images folder:   background: url('images/your-image.jpg')
+     *   - If image is in same folder:     background: url('bg.jpg')
+     *   - If using web URL:               background: url('https://example.com/image.jpg')
+     * ============================================================
+     */
+    .hero-bg {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      background: url('images/background.png') center center / cover no-repeat;
+      z-index: 0;
     }
+    
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -319,12 +334,11 @@
       margin: 0 auto;
     }
 
-    /* SIDE LOGO — large screens only */
     .menu-side-logo {
       display: none;
     }
 
-    @media (min-width: 1160px) {
+    @media (min-width: 1024px) {
       .menu-body {
         display: flex;
         align-items: center;
@@ -343,6 +357,7 @@
         width: 100%;
         height: auto;
         display: block;
+        border-radius: 12px;
       }
       .menu-side-logo::before {
         content: '';
@@ -1059,11 +1074,18 @@
 </head>
 <body>
 
-  <!-- HERO SECTION -->
+  <!-- ===== HERO SECTION with image background ===== -->
   <header class="hero" id="home">
-    <video autoplay muted loop playsinline>
-      <source src="video.mp4" type="video/mp4">
-    </video>
+    <!-- 
+      ============================================================
+      THE BACKGROUND IMAGE IS SET IN THE .hero-bg CLASS ABOVE
+      ============================================================
+      The image path is currently: images/background.png
+      
+      To change it, edit the .hero-bg CSS rule in the <style> section.
+      Look for: background: url('images/background.png')
+    -->
+    <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
 
     <nav class="navbar">
@@ -1119,9 +1141,9 @@
       </div>
 
       <div class="menu-body">
-      <div class="menu-side-logo">
-        <img src="data:image/png;base64,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" alt="Kosy Kings Kitchen Logo">
-      </div>
+        <div class="menu-side-logo">
+          <img src="images/logo.png" alt="Kosy Kings Kitchen Logo">
+        </div>
         <div class="slider-area">
           <div class="slider-container">
             <div class="slides-wrap" id="slidesWrap"></div>
@@ -1279,13 +1301,13 @@
     window.addEventListener('scroll', handleScrollReveal);
     window.addEventListener('resize', handleScrollReveal);
 
-    // ========== RICE DISH DATA (from the image) ==========
+    // ========== RICE DISH DATA ==========
     const menuItems = [
       { 
         id: 0, 
         name: "Kosy Assorted Fried Rice", 
         tagline: "Premium mix of meats & spices", 
-        img: "images/assorted.jpg", // <-- ADD YOUR IMAGE PATH HERE
+        img: "images/assorted.jpg",
         prices: { Large: 30, Medium: 30, Small: 30 }, 
         desc: "A rich blend of fried rice with assorted meats and garden vegetables." 
       },
@@ -1293,7 +1315,7 @@
         id: 1, 
         name: "Fried Rice", 
         tagline: "Classic stir-fried rice", 
-        img: "images/fried.jpeg", // <-- ADD YOUR IMAGE PATH HERE
+        img: "images/fried.jpeg",
         prices: { Large: 30, Medium: 25, Small: 20 }, 
         desc: "Perfectly seasoned fried rice with carrots, peas, and spring onions." 
       },
@@ -1301,7 +1323,7 @@
         id: 2, 
         name: "Jollof Rice", 
         tagline: "Spicy tomato-based rice", 
-        img: "images/jollof.webp", // <-- ADD YOUR IMAGE PATH HERE
+        img: "images/jollof.webp",
         prices: { Large: 30, Medium: 25, Small: 20 }, 
         desc: "Our signature jollof rice with a rich tomato, pepper, and herb blend." 
       },
@@ -1309,7 +1331,7 @@
         id: 3, 
         name: "Plain Rice", 
         tagline: "Steamed white rice", 
-        img: "images/plain.jpeg", // <-- ADD YOUR IMAGE PATH HERE
+        img: "images/plain.jpeg",
         prices: { Large: 25, Medium: 20, Small: 15 }, 
         desc: "Fluffy steamed white rice, the perfect side for any stew or sauce." 
       },
@@ -1317,7 +1339,7 @@
         id: 4, 
         name: "Waakye", 
         tagline: "Rice & beans combo", 
-        img: "images/waakye.jpg", // <-- ADD YOUR IMAGE PATH HERE
+        img: "images/waakye.jpg",
         prices: { Large: 30, Medium: 25, Small: 15 }, 
         desc: "Traditional Ghanaian waakye – rice and beans cooked with sorghum leaves, served with shito." 
       }
@@ -1335,7 +1357,6 @@
     const pricesText = document.getElementById('pricesText');
     const descText = document.getElementById('dishDesc');
 
-    // Build slides with images
     function buildSlides() {
       slidesWrap.innerHTML = '';
       menuItems.forEach((item, index) => {
@@ -1390,7 +1411,6 @@
       descText.textContent = item.desc;
     }
 
-    // Initialize slider
     function initSlider() {
       buildSlides();
       buildDots();
@@ -1425,7 +1445,6 @@
       }
     }
 
-    // ========== UPDATE SIZE SELECTOR PRICES ==========
     function updateSizePrices() {
       const item = menuItems[current];
       if (!item) return;
@@ -1437,7 +1456,6 @@
       });
     }
 
-    // ========== SIZE SELECTOR ==========
     document.querySelectorAll('.size-option').forEach(opt => {
       opt.addEventListener('click', function() {
         document.querySelectorAll('.size-option').forEach(o => {
@@ -1745,7 +1763,6 @@
     window.selectedSize = selectedSize;
     window.openModal = openModal;
 
-    // Initialize slider
     initSlider();
     setTimeout(updateSizePrices, 100);
   </script>
